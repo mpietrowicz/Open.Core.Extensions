@@ -2,6 +2,8 @@ using System;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
+using Open.Core.Extensions.Nhibernate.Factorys;
+using Open.Core.Extensions.Nhibernate.Interfaces;
 
 namespace Open.Core.Extensions.Nhibernate.Extensions
 {
@@ -45,7 +47,7 @@ namespace Open.Core.Extensions.Nhibernate.Extensions
                 nh.AddMappings(mapping);
             }
 
-            serviceCollection.AddSingleton(nh);
+            serviceCollection.AddSingleton(typeof(INhibernateFactory),nh);
             serviceCollection.AddScoped(provider => nh.GetCurrentSession());
             serviceCollection.AddScoped(provider => nh.GetCurrentStatelessSession());
             return serviceCollection;

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NHibernate.Linq;
 using Open.Core.Extensions.Nhibernate.Extensions;
+using Open.Core.Extensions.Nhibernate.Factorys;
 using Open.Core.Extensions.Nhibernate.Tests.Maps;
 using Xunit;
 
