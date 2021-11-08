@@ -46,6 +46,10 @@ namespace Open.Core.Extensions.Nhibernate
         {
             return SessionFactory.OpenSession();
         }
+        public IStatelessSession GetCurrentStatelessSession()
+        {
+            return SessionFactory.OpenStatelessSession();
+        }
 
         public void CloseSession()
         {
@@ -73,7 +77,13 @@ namespace Open.Core.Extensions.Nhibernate
 
         public void AddMappings(Assembly assembly)
         {
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
             _assemblesToRegister.Add(assembly);
+        }
+        public void AddMappings(Assembly[] assembly)
+        {
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+            _assemblesToRegister.AddRange(assembly);
         }
 
         public void AddMappings<TMapClass>() where TMapClass : class
@@ -136,6 +146,7 @@ namespace Open.Core.Extensions.Nhibernate
             new SchemaExport(config)
                 .Create(false, true);
         }
+
 
        
     }

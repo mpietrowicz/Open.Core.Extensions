@@ -1,7 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using NHibernate;
 using NHibernate.Linq;
+using Open.Core.Extensions.Nhibernate.Extensions;
 using Open.Core.Extensions.Nhibernate.Tests.Maps;
 using Xunit;
 
@@ -36,6 +39,20 @@ namespace Open.Core.Extensions.Nhibernate.Tests
             Assert.Equal(id,resp.FirstOrDefault()?.Id);
             Assert.Null(resp.FirstOrDefault()?.image);
 
+        }
+
+        [Fact]
+        public void ExtensionsRegisterSessionAndStatelessSession()
+        {
+            var serviceProvider = new ServiceCollection()
+                .RegisterNhSqlLite(GetType().Assembly)
+                .BuildServiceProvider();
+
+            var session = serviceProvider.GetService<ISession>();
+            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
+            
+            Assert.NotNull(session);
+            Assert.NotNull(sessionStatles);
         }
     }
 }
