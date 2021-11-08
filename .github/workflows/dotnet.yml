@@ -23,3 +23,9 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
+      with:
+       name: dotnet-results
+       path: TestResults
+       if: ${{ always() }}
