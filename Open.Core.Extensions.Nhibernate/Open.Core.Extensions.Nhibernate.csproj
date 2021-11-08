@@ -2,6 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Open.Core.Extensions.Nhibernate</Title>
+        <Copyright>Michał Pietrowicz</Copyright>
+        <PackageProjectUrl>https://github.com/mpietrowicz/Open.Core.Extensions</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/mpietrowicz/Open.Core.Extensions/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/mpietrowicz/Open.Core.Extensions.git</RepositoryUrl>
+        <RepositoryType>.net</RepositoryType>
+        <PackageTags>Open.Core.Extensions Nhibernate Extensions</PackageTags>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentNHibernate" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="NHibernate" Version="5.3.10" />
+        <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+    </ItemGroup>
 
 </Project>
