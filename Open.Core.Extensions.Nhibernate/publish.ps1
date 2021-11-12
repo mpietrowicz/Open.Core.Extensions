@@ -1,0 +1,1 @@
+Get-ChildItem -Path $pwd -Recurse -Force

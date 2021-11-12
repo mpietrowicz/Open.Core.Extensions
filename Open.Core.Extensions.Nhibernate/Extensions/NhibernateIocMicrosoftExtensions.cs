@@ -9,20 +9,20 @@ namespace Open.Core.Extensions.Nhibernate.Extensions
 {
     public static class NhibernateIocMicrosoftExtensions
     {
-        public static IServiceCollection RegisterNhSqlLite(this ServiceCollection serviceCollection,
+        public static IServiceCollection RegisterNhSqlLite(this IServiceCollection serviceCollection,
             params Assembly[] mapping)
         {
             return RegisterNhSqlLite(serviceCollection as ServiceCollection, String.Empty, false, true, mapping);
         }
 
-        public static IServiceCollection RegisterNhSqlLite(this ServiceCollection serviceCollection, bool cache,
+        public static IServiceCollection RegisterNhSqlLite(this IServiceCollection serviceCollection, bool cache,
             bool exposeConfiguration, params Assembly[] mapping)
         {
             return RegisterNhSqlLite(serviceCollection as ServiceCollection, String.Empty, cache, exposeConfiguration,
                 mapping);
         }
 
-        public static IServiceCollection RegisterNhSqlLite(this ServiceCollection serviceCollection,
+        public static IServiceCollection RegisterNhSqlLite(this IServiceCollection serviceCollection,
             string databaseFile, bool cache, bool exposeConfiguration, params Assembly[] mapping)
         {
             if (string.IsNullOrEmpty(databaseFile))
