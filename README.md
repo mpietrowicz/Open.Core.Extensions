@@ -16,3 +16,9 @@ Register in  Startup -> ConfigureServices
 You can resolve the interfaces after registering services.RegisterNhSqlLite(GetType().Assembly);
 - ISession (scoped)
 - IStatelessSession (scoped)
+
+Auto configuration :
+- The name of the database will be "database.db" by default.
+- Second Level Cache will be disabled.
+- Expose Configuration will be enabled.
+- Delete on startup  will be disabled;
