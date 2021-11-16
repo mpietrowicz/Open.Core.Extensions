@@ -17,7 +17,7 @@ Auto configuration :
 - Second Level Cache will be `disabled`.
 - Expose Configuration will be `enabled`.
 - Delete on startup  will be `disabled`;
-- Mappings will be register in current residing `Assembly`;
+- Mappings will be register in current residing `Assembly` -> `params Assembly[]` mapping;
 
 3. Set database name register as so:
 ```c#
@@ -33,9 +33,24 @@ Auto configuration :
 - Second Level Cache will be `disabled`.
 - Expose Configuration will be `enabled`.
 - Delete on startup  will be `disabled`;
-- Mappings will be register in current residing `Assembly`;
+- Mappings will be register in current residing `Assembly` -> `params Assembly[]` mapping;
 
-4. 
+4. Set database `name` , `cache` , `expose Configuration` register as so:
+```c#
+        public void ConfigureServices(IServiceCollection services)
+        {
+            ...            
+                                            DB NAME       CACHE  CONF 
+            services.RegisterNhSqlLite("database_name.db", true, true,GetType().Assembly);
+            ...
+        }
+```
+Auto configuration :
+- The name of the database will be `database_name.db` by assigned.
+- Second Level Cache will be `enabled`.
+- Expose Configuration will be `enabled`.
+- Delete on startup  will be `disabled`;
+- Mappings will be register in current residing `Assembly` -> `params Assembly[]` mapping;
 
 You can resolve the interfaces after registering
 - ISession `Scoped`
