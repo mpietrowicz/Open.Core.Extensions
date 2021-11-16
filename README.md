@@ -12,8 +12,6 @@ Register in  `Startup -> ConfigureServices` as so:
             ...
         }
 ```
-
-
 Auto configuration :
 - The name of the database will be `database.db` by default.
 - Second Level Cache will be `disabled`.
@@ -21,6 +19,23 @@ Auto configuration :
 - Delete on startup  will be `disabled`;
 - Mappings will be register in current residing `Assembly`;
 
+3. Set database name register as so:
+```c#
+        public void ConfigureServices(IServiceCollection services)
+        {
+            ...            
+            services.RegisterNhSqlLite("database_name.db",GetType().Assembly);
+            ...
+        }
+```
+Auto configuration :
+- The name of the database will be `database_name.db` by assigned.
+- Second Level Cache will be `disabled`.
+- Expose Configuration will be `enabled`.
+- Delete on startup  will be `disabled`;
+- Mappings will be register in current residing `Assembly`;
+
+4. 
 
 You can resolve the interfaces after registering `services.RegisterNhSqlLite(GetType().Assembly);`
 - ISession `Scoped`

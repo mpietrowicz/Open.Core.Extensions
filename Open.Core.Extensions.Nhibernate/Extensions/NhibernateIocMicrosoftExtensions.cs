@@ -14,6 +14,13 @@ namespace Open.Core.Extensions.Nhibernate.Extensions
         {
             return RegisterNhSqlLite(serviceCollection as ServiceCollection, String.Empty, false, true, mapping);
         }
+        
+        public static IServiceCollection RegisterNhSqlLite(this IServiceCollection serviceCollection,
+            string databaseFile,
+            params Assembly[] mapping)
+        {
+            return RegisterNhSqlLite(serviceCollection as ServiceCollection, String.Empty, false, true, mapping);
+        }
 
         public static IServiceCollection RegisterNhSqlLite(this IServiceCollection serviceCollection, bool cache,
             bool exposeConfiguration, params Assembly[] mapping)

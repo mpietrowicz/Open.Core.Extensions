@@ -10,6 +10,7 @@
         <RepositoryUrl>https://github.com/mpietrowicz/Open.Core.Extensions.git</RepositoryUrl>
         <RepositoryType>.net</RepositoryType>
         <PackageTags>Open.Core.Extensions Nhibernate Extensions</PackageTags>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
