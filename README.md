@@ -37,7 +37,7 @@ Auto configuration :
 
 4. 
 
-You can resolve the interfaces after registering `services.RegisterNhSqlLite(GetType().Assembly);`
+You can resolve the interfaces after registering
 - ISession `Scoped`
 ```c#
     using System;
