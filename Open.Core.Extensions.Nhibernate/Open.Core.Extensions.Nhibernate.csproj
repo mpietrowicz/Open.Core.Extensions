@@ -11,12 +11,14 @@
         <RepositoryType>.net</RepositoryType>
         <PackageTags>Open.Core.Extensions Nhibernate Extensions</PackageTags>
         <PackageVersion>1.0.2</PackageVersion>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="FluentNHibernate" Version="3.1.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="NHibernate" Version="5.3.10" />
+      <PackageReference Include="Scrutor" Version="3.3.0" />
         <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
     </ItemGroup>
 

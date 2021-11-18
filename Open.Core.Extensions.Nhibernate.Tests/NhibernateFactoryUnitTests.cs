@@ -30,14 +30,12 @@ namespace Open.Core.Extensions.Nhibernate.Tests
             Assert.Null(response);
             await session.SaveAsync(new Image()
             {
-                Id = id,
                 Name = "Test"
             });
             await session.FlushAsync();
             var resp = await session.QueryOver<Image>().ListAsync();
             Assert.NotNull(resp);
             Assert.Equal("Test",resp.FirstOrDefault()?.Name);
-            Assert.Equal(id,resp.FirstOrDefault()?.Id);
             Assert.Null(resp.FirstOrDefault()?.image);
 
         }
@@ -52,6 +50,66 @@ namespace Open.Core.Extensions.Nhibernate.Tests
             var session = serviceProvider.GetService<ISession>();
             var sessionStatles = serviceProvider.GetService<IStatelessSession>();
             
+            Assert.NotNull(session);
+            Assert.NotNull(sessionStatles);
+        }
+        
+        [Fact]
+        public async Task ExtensionsRegisterGenericRepository()
+        {
+            var serviceProvider = new ServiceCollection()
+                .RegisterNhSqlLite(GetType().Assembly)
+                .RegisterNhGenericRepository()
+                .BuildServiceProvider();
+
+            var session = serviceProvider.GetService<ISession>();
+            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
+            var genericRepository = serviceProvider.GetService<IGenericRepository<Image>>();
+
+
+           var all = await genericRepository.Get();
+
+           var name = Guid.NewGuid().ToString();
+           await genericRepository.Insert(new Image()
+           {
+               Name = name
+           });
+           all = await genericRepository.Get();
+
+           var find = await genericRepository.Find(x => x.Name == name);
+           
+           Assert.NotNull(all);
+           Assert.NotNull(find);
+            Assert.NotNull(session);
+            Assert.NotNull(sessionStatles);
+        }
+        
+        [Fact]
+        public async Task ExtensionsRegisterStatlessGenericRepository()
+        {
+            var serviceProvider = new ServiceCollection()
+                .RegisterNhSqlLite(GetType().Assembly)
+                .RegisterNhGenericRepository()
+                .BuildServiceProvider();
+
+            var session = serviceProvider.GetService<ISession>();
+            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
+            var genericRepository = serviceProvider.GetService<IGenericRepositoryStateless<Image>>();
+
+
+            var all = await genericRepository.Get();
+
+            var name = Guid.NewGuid().ToString();
+            await genericRepository.Insert(new Image()
+            {
+                Name = name
+            });
+            all = await genericRepository.Get();
+
+            var find = await genericRepository.Find(x => x.Name == name);
+           
+            Assert.NotNull(all);
+            Assert.NotNull(find);
             Assert.NotNull(session);
             Assert.NotNull(sessionStatles);
         }
