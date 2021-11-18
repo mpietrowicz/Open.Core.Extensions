@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{2A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Open.Core.Extensions.Nhibernate.Api", "Open.Core.Extensions.Nhibernate.Api\Open.Core.Extensions.Nhibernate.Api.csproj", "{7DDD0DB8-FE25-455D-A3B8-495DED027791}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{61C6CFB4-807D-4673-972C-F2B8D0C843BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,5 +79,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{816ED991-1503-423E-9D27-E741F5681944} = {2A5AE301-D7F4-4BFF-A7C6-154C65D06999}
+		{BF1F3D61-0FC9-4519-B4FD-610C6D8A61C4} = {61C6CFB4-807D-4673-972C-F2B8D0C843BA}
 	EndGlobalSection
 EndGlobal
