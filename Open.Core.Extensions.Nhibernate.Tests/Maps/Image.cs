@@ -3,9 +3,9 @@ using NHibernate.Type;
 
 namespace Open.Core.Extensions.Nhibernate.Tests.Maps
 {
-    public class Image
+    public class Image : IEntity
     {
-        public virtual string Id { get; set; }
+        public virtual int Id { get; set; }
         public virtual byte[] image { get; set; }
         
         public virtual string Name { get; set; }
@@ -13,8 +13,9 @@ namespace Open.Core.Extensions.Nhibernate.Tests.Maps
     public class ImageMap : ClassMap<Image> {
         public ImageMap()
         {
-            Id(x => x.Id).GeneratedBy.Assigned();
+            Id(x => x.Id).GeneratedBy.Increment();
             Map(x => x.image).CustomType<BinaryBlobType>();
+            Map(x => x.Name).Length(256);
         }
     }
 }

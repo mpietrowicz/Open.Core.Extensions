@@ -59,5 +59,15 @@ namespace Open.Core.Extensions.Nhibernate.Extensions
             serviceCollection.AddScoped(provider => nh.GetCurrentStatelessSession());
             return serviceCollection;
         }
+        
+        
+        public static IServiceCollection RegisterNhGenericRepository(this IServiceCollection serviceCollection)
+        {
+            
+            serviceCollection.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            serviceCollection.AddTransient(typeof(IGenericRepositoryStateless<>), typeof(GenericRepositoryStateless<>));
+
+            return serviceCollection;
+        }
     }
 }
