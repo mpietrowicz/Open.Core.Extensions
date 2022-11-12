@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
-using NHibernate.Linq;
 using Open.Core.Extensions.Nhibernate.Extensions;
 using Open.Core.Extensions.Nhibernate.Factorys;
 using Open.Core.Extensions.Nhibernate.Tests.Maps;
@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Open.Core.Extensions.Nhibernate.Tests
 {
-    public class NhibernateFactoryUnitTests
+    public class NhibernateFactoryAutotofacUnitTests
     {
         [Fact]
         public async Task Build()
@@ -43,12 +43,12 @@ namespace Open.Core.Extensions.Nhibernate.Tests
         [Fact]
         public void ExtensionsRegisterSessionAndStatelessSession()
         {
-            var serviceProvider = new ServiceCollection()
+            var serviceProvider = new ContainerBuilder()
                 .RegisterNhSqlLite(GetType().Assembly)
-                .BuildServiceProvider();
+                .Build();
 
-            var session = serviceProvider.GetService<ISession>();
-            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
+            var session = serviceProvider.Resolve<ISession>();
+            var sessionStatles = serviceProvider.Resolve<IStatelessSession>();
             
             Assert.NotNull(session);
             Assert.NotNull(sessionStatles);
@@ -57,29 +57,29 @@ namespace Open.Core.Extensions.Nhibernate.Tests
         [Fact]
         public async Task ExtensionsRegisterGenericRepository()
         {
-            var serviceProvider = new ServiceCollection()
+            var serviceProvider = new ContainerBuilder()
                 .RegisterNhSqlLite(GetType().Assembly)
                 .RegisterNhGenericRepository()
-                .BuildServiceProvider();
+                .Build();
 
-            var session = serviceProvider.GetService<ISession>();
-            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
-            var genericRepository = serviceProvider.GetService<IGenericRepository<Image>>();
+            var session = serviceProvider.Resolve<ISession>();
+            var sessionStatles = serviceProvider.Resolve<IStatelessSession>();
+            var genericRepository = serviceProvider.Resolve<IGenericRepository<Image>>();
 
 
-           var all = await genericRepository.Get();
+            var all = await genericRepository.Get();
 
-           var name = Guid.NewGuid().ToString();
-           await genericRepository.Insert(new Image()
-           {
-               Name = name
-           });
-           all = await genericRepository.Get();
+            var name = Guid.NewGuid().ToString();
+            await genericRepository.Insert(new Image()
+            {
+                Name = name
+            });
+            all = await genericRepository.Get();
 
-           var find = await genericRepository.Find(x => x.Name == name);
+            var find = await genericRepository.Find(x => x.Name == name);
            
-           Assert.NotNull(all);
-           Assert.NotNull(find);
+            Assert.NotNull(all);
+            Assert.NotNull(find);
             Assert.NotNull(session);
             Assert.NotNull(sessionStatles);
         }
@@ -87,14 +87,14 @@ namespace Open.Core.Extensions.Nhibernate.Tests
         [Fact]
         public async Task ExtensionsRegisterStatlessGenericRepository()
         {
-            var serviceProvider = new ServiceCollection()
+            var serviceProvider = new ContainerBuilder()
                 .RegisterNhSqlLite(GetType().Assembly)
                 .RegisterNhGenericRepository()
-                .BuildServiceProvider();
+                .Build();
 
-            var session = serviceProvider.GetService<ISession>();
-            var sessionStatles = serviceProvider.GetService<IStatelessSession>();
-            var genericRepository = serviceProvider.GetService<IGenericRepositoryStateless<Image>>();
+            var session = serviceProvider.Resolve<ISession>();
+            var sessionStatles = serviceProvider.Resolve<IStatelessSession>();
+            var genericRepository = serviceProvider.Resolve<IGenericRepositoryStateless<Image>>();
 
 
             var all = await genericRepository.Get();

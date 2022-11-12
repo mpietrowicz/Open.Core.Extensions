@@ -9,7 +9,13 @@ namespace Open.Core.Extensions.Nhibernate
 {
     public abstract class NhibernateFactory : INhibernateFactory
     {
+        protected int AdoNetBatchSize { get; set; } = 0;
 
+        public void SetAdoNetBatchSize(int size)
+        {
+            if (size <= 0) throw new ArgumentOutOfRangeException(nameof(size));
+            AdoNetBatchSize = size;
+        }
 
         protected ISessionFactory _sessionFactory;
         protected ISessionFactory SessionFactory

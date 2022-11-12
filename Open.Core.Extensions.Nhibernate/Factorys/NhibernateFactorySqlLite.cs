@@ -9,7 +9,7 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace Open.Core.Extensions.Nhibernate.Factorys
 {
-    public class NhibernateFactorySqlLite : NhibernateFactory
+    public sealed class NhibernateFactorySqlLite : NhibernateFactory
     {
         private string PathToDatabaseFile { get; }
 
@@ -30,9 +30,18 @@ namespace Open.Core.Extensions.Nhibernate.Factorys
         {
             var config =  Fluently.Configure();
             //which database
-            config = config.Database(
-                SQLiteConfiguration.Standard
-                    .UsingFile(PathToDatabaseFile)
+            config = config.Database(() =>
+                {
+
+                    var c = SQLiteConfiguration.Standard
+                        .UsingFile(PathToDatabaseFile);
+                    if (AdoNetBatchSize > 0)
+                    {
+                        c.AdoNetBatchSize(AdoNetBatchSize);
+                    }
+                    return c;
+                }
+               
             );
                 
             config = config.Cache(
@@ -47,7 +56,11 @@ namespace Open.Core.Extensions.Nhibernate.Factorys
             {
                 config = config.ExposeConfiguration(BuildSchema);
             }
+
+            if (AdoNetBatchSize > 0)
+            {
                 
+            }
             return config.BuildSessionFactory();
         }
         private void BuildSchema(Configuration config)

@@ -14,5 +14,6 @@ namespace Open.Core.Extensions.Nhibernate.Interfaces
         void UseSecondLevelCache();
         void AddMappings(Assembly assembly);
         void AddMappings<TMapClass>() where TMapClass : class;
+        IStatelessSession GetCurrentStatelessSession();
     }
 }
